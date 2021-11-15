@@ -6,6 +6,8 @@ Installation
 
 3 - Run the local dev server with `yarn start`
 
+4 - Run the test suit with `yarn test`
+
 Rules
 
 * The game is played with a deck of 52 cards
