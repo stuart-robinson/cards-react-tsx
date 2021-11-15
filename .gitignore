@@ -10,6 +10,7 @@
 
 # production
 /build
+solution.tsx
 
 # misc
 .DS_Store

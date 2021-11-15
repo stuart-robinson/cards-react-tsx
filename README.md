@@ -1,46 +1,30 @@
-# Getting Started with Create React App
+Installation
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1 - Clone this github repo: `git clone git@github.com:stuart-robinson/cards.git`
 
-## Available Scripts
+2 - Install required packages: `yarn` (or npm)
 
-In the project directory, you can run:
+3 - Run the local dev server with `yarn start`
 
-### `yarn start`
+Rules
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+* The game is played with a deck of 52 cards
+* At the start of the game the deck is shuffled and two cards are dealt to the player and the dealer
+* Play begins with the player. The following choices available to the player:
+    * "Stand": Player stays put with their cards.
+    * "Hit": Player draws another card. If this card causes the player's total points to exceed 21 ("bust") then they will lose.
+* After the player has had their turn, the dealer will turn over their first card.
+* If the dealer has a score of 16 or less then the dealer must take another card
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Result
 
-### `yarn test`
+* If the player or the dealer busts then they will lose.
+* If no player has bust then the higher point total will win.
+* If both players have the same score the result is a draw unless one player has blackjack in which case they win.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Scoring
 
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+* Aces may be counted as 1 or 11 points. The higher value applies if it does not cause the player to bust
+* Cards 2 to 9 points are same as face value (e.g 5 = 5 points)
+* Ten, Jack, Queen, Kind count as ten points.
+* The value of a hand is the sum of the point values of the individual cards. Except, a "blackjack" is the highest hand, consisting of one ace and any 10-point card, and it outranks all other 21-point hands.
