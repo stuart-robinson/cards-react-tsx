@@ -9,17 +9,18 @@ import {
 import { Hand, CardSuit, CardRank } from "./types";
 
 describe("The game setup", () => {
-  test("The cards in the deck are shuffled each time the game is started", () => {
+  test("The cards in the deck are shuffled randomly each time the game is started", () => {
     const firstGame = setupGame();
     const secondGame = setupGame();
 
     expect(firstGame.cardDeck).not.toStrictEqual(secondGame.cardDeck);
   });
 
-  test("The player and dealer are each given two cards", () => {
-    const game = setupGame();
-    expect(game.playerHand.length).toBe(2);
-    expect(game.dealerHand.length).toBe(2);
+  test("The player and dealer are each given two cards from the deck", () => {
+    const initialGameState = setupGame();
+    expect(initialGameState.playerHand.length).toBe(2);
+    expect(initialGameState.dealerHand.length).toBe(2);
+    expect(initialGameState.cardDeck.length).toBe(48);
   });
 });
 
