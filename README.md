@@ -1,6 +1,6 @@
 Installation
 
-1 - Clone this github repo: `git clone git@github.com:stuart-robinson/cards.git`
+1 - Clone this github repo: `git clone git@github.com:stuart-robinson/cards-react-tsx.git`
 
 2 - Install required packages: `yarn` (or npm)
 
