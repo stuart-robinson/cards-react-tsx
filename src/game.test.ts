@@ -38,9 +38,9 @@ describe("Calculating the score", () => {
 
   const handC: Hand = [
     { suit: CardSuit.Clubs, rank: CardRank.Ace },
-    { suit: CardSuit.Clubs, rank: CardRank.Five },
+    { suit: CardSuit.Clubs, rank: CardRank.Ten },
     { suit: CardSuit.Clubs, rank: CardRank.Ace },
-    { suit: CardSuit.Clubs, rank: CardRank.Ace },
+    
   ];
 
   test("The score for a hand with Ace, 10 is 21", () => {
