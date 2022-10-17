@@ -26,33 +26,39 @@ describe("The game setup", () => {
 
 describe("Calculating the score", () => {
   const handA: Hand = [
-    { suit: CardSuit.Clubs, rank: CardRank.Ace },
+    { suit: CardSuit.Clubs, rank: CardRank.Eight },
     { suit: CardSuit.Clubs, rank: CardRank.Ten },
   ];
   const handB: Hand = [
+    { suit: CardSuit.Clubs, rank: CardRank.Ace },
+    { suit: CardSuit.Clubs, rank: CardRank.Ten },
+  ];
+  const handC: Hand = [
     { suit: CardSuit.Clubs, rank: CardRank.Ace },
     { suit: CardSuit.Clubs, rank: CardRank.Five },
     { suit: CardSuit.Clubs, rank: CardRank.Ace },
     { suit: CardSuit.Clubs, rank: CardRank.Ace },
   ];
 
-  const handC: Hand = [
+  const handD: Hand = [
     { suit: CardSuit.Clubs, rank: CardRank.Ace },
     { suit: CardSuit.Clubs, rank: CardRank.Ten },
     { suit: CardSuit.Clubs, rank: CardRank.Ace },
-    
   ];
+  test("The score for a hand with 8, 10 is 18", () => {
+    expect(calculateHandScore(handA)).toBe(18);
+  });
 
   test("The score for a hand with Ace, 10 is 21", () => {
-    expect(calculateHandScore(handA)).toBe(21);
+    expect(calculateHandScore(handB)).toBe(21);
   });
 
   test("The score for a hand with Ace, 5, Ace, Ace is 18", () => {
-    expect(calculateHandScore(handB)).toBe(18);
+    expect(calculateHandScore(handC)).toBe(18);
   });
 
   test("The score for a hand with Ace, 10, Ace is 12", () => {
-    expect(calculateHandScore(handC)).toBe(12);
+    expect(calculateHandScore(handD)).toBe(12);
   });
 });
 

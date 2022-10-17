@@ -38,7 +38,7 @@ const newCardDeck = (): CardDeck =>
     .reduce((a, v) => [...a, ...v]);
 
 const shuffle = (deck: CardDeck): CardDeck => {
-  return deck;
+  return deck.sort(() => Math.random() - 0.5);
 };
 
 const takeCard = (deck: CardDeck): { card: Card; remaining: CardDeck } => {
@@ -50,9 +50,9 @@ const takeCard = (deck: CardDeck): { card: Card; remaining: CardDeck } => {
 const setupGame = (): GameState => {
   const cardDeck = shuffle(newCardDeck());
   return {
-    cardDeck,
-    playerHand: [],
-    dealerHand: [],
+    playerHand: cardDeck.slice(cardDeck.length - 2, cardDeck.length),
+    dealerHand: cardDeck.slice(cardDeck.length - 4, cardDeck.length - 2),
+    cardDeck: cardDeck.slice(0, cardDeck.length - 4), // remaining cards after player and dealer have been give theirs
     turn: "player_turn",
   };
 };
@@ -110,9 +110,7 @@ const Game = (): JSX.Element => {
         {state.playerHand.map(CardImage)}
         <p>Player Score {calculateHandScore(state.playerHand)}</p>
       </div>
-
       <p>Dealer Cards</p>
-
       {state.turn === "player_turn" && state.dealerHand.length > 0 ? (
         <div>
           <CardBackImage />
