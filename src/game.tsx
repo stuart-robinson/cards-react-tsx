@@ -11,13 +11,14 @@ import {
 
 //UI Elements
 const CardBackImage = () => (
-  <img src={process.env.PUBLIC_URL + `/SVG-cards/png/1x/back.png`} />
+  <img alt="backOfCardImage" src={process.env.PUBLIC_URL + `/SVG-cards/png/1x/back.png`} />
 );
 
 const CardImage = ({ suit, rank }: Card) => {
   const card = rank === CardRank.Ace ? 1 : rank;
   return (
     <img
+      alt="frontOfCardImage"
       src={
         process.env.PUBLIC_URL +
         `/SVG-cards/png/1x/${suit.slice(0, -1)}_${card}.png`
@@ -59,15 +60,63 @@ const setupGame = (): GameState => {
 
 //Scoring
 const calculateHandScore = (hand: Hand): number => {
-  return 0;
+  let value: number = 0;
+  hand.forEach((card) => {
+    if (card.rank === "ace"){
+      if (value + 11 > 21){
+        value += 1
+      } else {
+        value += 11
+      }
+    } else if (card.rank === "jack" || card.rank === "queen" || card.rank === "king"){
+      value += 10
+    } else {
+    value += parseInt(card.rank)
+    }
+  })
+  return value
 };
 
 const determineGameResult = (state: GameState): GameResult => {
-  return "no_result";
+  // calculate and hands and store
+  const playerTotalScore: number = calculateHandScore(state.playerHand)
+  const dealerTotalScore: number = calculateHandScore(state.dealerHand)
+  // check for player bust
+  if (playerTotalScore > 21){
+    return "dealer_win"
+  }
+  // check for dealer bust
+  else if (dealerTotalScore > 21){
+    return "player_win"
+  }
+  // check for player win
+  else if (playerTotalScore > dealerTotalScore && playerTotalScore <= 21){
+    return "player_win"
+  }
+  // check for dealer win
+  else if (dealerTotalScore > playerTotalScore && dealerTotalScore <= 21){
+    return "dealer_win"
+  }
+  // check for draw win
+  else if (dealerTotalScore === playerTotalScore){
+    return "draw"
+  }
+  // default no result
+  return "draw";
 };
 
 //Player Actions
 const playerStands = (state: GameState): GameState => {
+  // dealer takes cards if dealer score is less than or equal to 16
+  const { card, remaining } = takeCard(state.cardDeck);
+  let dealerTotalScore: number = calculateHandScore(state.dealerHand)
+  if(dealerTotalScore <= 16){
+    return {
+      ...state,
+      cardDeck: remaining,
+      dealerHand: [...state.dealerHand, card],
+    }
+  }
   return {
     ...state,
     turn: "dealer_turn",
@@ -86,7 +135,6 @@ const playerHits = (state: GameState): GameState => {
 //UI Component
 const Game = (): JSX.Element => {
   const [state, setState] = useState(setupGame());
-
   return (
     <>
       <div>
@@ -122,13 +170,13 @@ const Game = (): JSX.Element => {
           <p>Dealer Score {calculateHandScore(state.dealerHand)}</p>
         </div>
       )}
-      {state.turn === "dealer_turn" &&
-      determineGameResult(state) != "no_result" ? (
-        <p>{determineGameResult(state)}</p>
-      ) : (
-        <p>{state.turn}</p>
-      )}
+      {/*
+        determines when to render game result -> when playerhand busts or when dealerbusts , otherwise it renders whom's turn it is
+        dealer win state will render if the playerhand busts prior to standing
+      */}
+      {calculateHandScore(state.playerHand) > 21 ? determineGameResult(state) : state.turn === "dealer_turn" ? determineGameResult(state) : <p>{state.turn}</p>}
     </>
+
   );
 };
 
