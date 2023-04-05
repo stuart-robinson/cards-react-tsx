@@ -45,6 +45,12 @@ describe("Calculating the score", () => {
     { suit: CardSuit.Clubs, rank: CardRank.Ten },
     { suit: CardSuit.Clubs, rank: CardRank.Ace },
   ];
+
+  const handE: Hand = [
+    { suit: CardSuit.Clubs, rank: CardRank.Nine },
+    { suit: CardSuit.Clubs, rank: CardRank.Queen },
+  ];
+
   test("The score for a hand with 8, 10 is 18", () => {
     expect(calculateHandScore(handA)).toBe(18);
   });
@@ -59,6 +65,10 @@ describe("Calculating the score", () => {
 
   test("The score for a hand with Ace, 10, Ace is 12", () => {
     expect(calculateHandScore(handD)).toBe(12);
+  });
+
+  test("The score for a hand with 9, Queen is 19", () => {
+    expect(calculateHandScore(handE)).toBe(19);
   });
 });
 
@@ -162,7 +172,7 @@ describe("Determining the winner", () => {
     const game = setupGame();
     const blackJack: Hand = [
       { suit: CardSuit.Clubs, rank: CardRank.Ace },
-      { suit: CardSuit.Clubs, rank: CardRank.Ten },
+      { suit: CardSuit.Clubs, rank: CardRank.King },
     ];
     const notBlackJack: Hand = [
       { suit: CardSuit.Clubs, rank: CardRank.Ace },
